@@ -23,6 +23,7 @@ from torch.testing._internal.common_device_type import (
     onlyNativeDeviceTypes,
     ops,
     precisionOverride,
+    xfailIfMPSUnsupportedDtype,
 )
 from torch.testing._internal.common_dtype import (
     all_types_and_complex_and,
@@ -1549,6 +1550,7 @@ class TestUnaryUfuncs(TestCase):
             self.assertGreater(math.copysign(1.0, v), 0.0)
 
     # TODO: update to compare against NumPy by rationalizing with OpInfo
+    @xfailIfMPSUnsupportedDtype
     @onlyAccelerator
     @dtypes(torch.float, torch.double)
     def test_abs_zero(self, device, dtype):
